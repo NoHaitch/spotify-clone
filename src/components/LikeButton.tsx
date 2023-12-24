@@ -1,10 +1,11 @@
 "use client";
 
-import { useSessionContext } from "@supabase/auth-helpers-react";
-import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import toast from "react-hot-toast";
+
+import { useRouter } from "next/navigation";
+import { useSessionContext } from "@supabase/auth-helpers-react";
 
 import useAuthModal from "@/hooks/useAuthModal";
 import { useUser } from "@/hooks/useUser";
@@ -52,10 +53,10 @@ const LikeButton: React.FC<LikeButtonProps> = ({ songId }) => {
 
     if (isLiked) {
       const { error } = await supabaseClient
-        .from('liked_songs')
+        .from("liked_songs")
         .delete()
-        .eq('user_id', user.id)
-        .eq('song_id', songId);
+        .eq("user_id", user.id)
+        .eq("song_id", songId);
 
       if (error) {
         toast.error(error.message + songId + user.id);
@@ -63,16 +64,16 @@ const LikeButton: React.FC<LikeButtonProps> = ({ songId }) => {
         setIsLiked(false);
       }
     } else {
-      const { error } = await supabaseClient.from('liked_songs').insert({
+      const { error } = await supabaseClient.from("liked_songs").insert({
         song_id: songId,
-        user_id: user.id
+        user_id: user.id,
       });
 
       if (error) {
         toast.error(error.message);
       } else {
         setIsLiked(true);
-        toast.success('Liked!');
+        toast.success("Liked!");
       }
     }
 
