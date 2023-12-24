@@ -1,5 +1,14 @@
 import Stripe from "stripe";
 
+export interface Song {
+    id: string;
+    user_id: string;
+    author: string;
+    title: string;
+    song_path: string;
+    image_path: string;
+};
+
 export interface UserDetails {
     id: string;
     first_name: string;
@@ -28,7 +37,7 @@ export interface UserDetails {
     currency?: string;
     type?: Stripe.Price.Type;
     interval?: Stripe.Price.Recurring.Interval;
-    interval_count?:number;
+    interval_count?: number;
     trial_period_days: number | null;
     metadata?: Stripe.Metadata;
     products?: CSSMathProduct;
