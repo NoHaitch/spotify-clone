@@ -12,6 +12,7 @@ import { useSupabaseClient } from "@supabase/auth-helpers-react";
 
 import useAuthModal from "@/hooks/useAuthModal";
 import { useUser } from "@/hooks/useUser";
+import usePlayer from "@/hooks/usePlayer";
 
 import Button from "./Button";
 
@@ -22,6 +23,7 @@ interface HeaderProps {
 
 const Header: React.FC<HeaderProps> = ({ children, className }) => {
   const authModal = useAuthModal();
+  const player = usePlayer();
   const router = useRouter();
 
   const supabaseClient = useSupabaseClient();
@@ -29,7 +31,7 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
 
   const handleLogout = async () => {
     const { error } = await supabaseClient.auth.signOut();
-    // TODO: Reset any playing song
+    player.reset();
     router.refresh();
 
     if (error) {
